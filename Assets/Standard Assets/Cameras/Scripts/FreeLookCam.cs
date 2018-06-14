@@ -53,19 +53,17 @@ namespace UnityStandardAssets.Cameras
             {
                 HandleRotationMovement();
             }
-           
+
             if (m_LockCursor && Input.GetMouseButtonUp(0))
             {
                 Cursor.lockState = m_LockCursor ? CursorLockMode.Locked : CursorLockMode.None;
                 Cursor.visible = !m_LockCursor;
             }
 
-            var fov  = Camera.main.fieldOfView;
-            fov -= Input.GetAxis("Mouse ScrollWheel") * sensitivity;
-            fov = Mathf.Clamp(fov, minFov, maxFov);
-            Camera.main.fieldOfView = fov;
+            HandleCameraZoom();
         }
 
+        
 
         private void OnDisable()
         {
@@ -125,6 +123,14 @@ namespace UnityStandardAssets.Cameras
 				m_Pivot.localRotation = m_PivotTargetRot;
 				transform.localRotation = m_TransformTargetRot;
 			}
+        }
+
+        private void HandleCameraZoom()
+        {
+            var fov = Camera.main.fieldOfView;
+            fov -= Input.GetAxis("Mouse ScrollWheel") * sensitivity;
+            fov = Mathf.Clamp(fov, minFov, maxFov);
+            Camera.main.fieldOfView = fov;
         }
     }
 }
