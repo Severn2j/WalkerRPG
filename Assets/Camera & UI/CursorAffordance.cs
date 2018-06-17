@@ -11,15 +11,15 @@ public class CursorAffordance : MonoBehaviour {
     [SerializeField] Vector2 cursorHotspot = new Vector2(0, 0);
 
 
-
     CameraRaycaster cameraRaycaster;
     // Use this for initialization
     void Start () {
         cameraRaycaster = GetComponent<CameraRaycaster>();
+        cameraRaycaster.layerChangeObservers += OnLayerChanged;
     }
 	
 	// Update is called once per frame
-	void LateUpdate () {
+	void OnLayerChanged() {
 
         switch (cameraRaycaster.currentLayerHit)
         {
