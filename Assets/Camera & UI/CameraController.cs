@@ -23,11 +23,14 @@ public class CameraController : MonoBehaviour {
         {
             // Handle Direct Movement
 
-            // TODO - Player occasionally gets stuck facing the camera in this mode, work out why and fix.
-
-            currentZoom -= Input.GetAxis("Vertical R"); // "Vertical R" being the right stick on the 360 controller
+            // Zoom camera with A/B Joystick Buttons
+            currentZoom -= Input.GetAxis("Fire1") * zoomSpeed * Time.deltaTime; 
+            currentZoom += Input.GetAxis("Fire2") * zoomSpeed * Time.deltaTime; 
             currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
-            currentYaw -= Input.GetAxis("Horizontal R") * yawSpeed * Time.deltaTime;
+
+            // Rotate camera using Left/Right Joystick Bumpers
+            currentYaw -= Input.GetAxis("Fire4") * yawSpeed * Time.deltaTime;
+            currentYaw += Input.GetAxis("Fire5") * yawSpeed * Time.deltaTime;
         }
         else
         {
